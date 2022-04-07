@@ -1,7 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo&family=VT323&display=swap');
+
+* {
+    font-family: 'Archivo',
+        sans-serif;
+}
+
 header {
-    background-color: cadetblue;
+    background-color: #302b25;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 12px
+    padding: 12px 12px;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#landing-title {
+    display: flex;
+    justify-content: center;
+}
+
+#landing-title h2,
+#landing-title p {
+    display: flex;
+    justify-content: center;
+}
+
+#landing-title h2 {
+    font-size: 30px;
+    margin: 10px 0;
+
+}
+
+#landing-title p {
+    font-size: 20px;
+
+}
+
+ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+li {
+    display: flex;
+    margin: 10px 20px;
 }
