@@ -1,18 +1,17 @@
 $main = document.querySelector("main")
 
-function createNavLinks() {
+fetch(`https://botw-compendium.herokuapp.com/api/v2/all`)
+    .then(response => response.json())
+    .then(parsedResponse => {
+        console.log(parsedResponse)
+        createHtml()
+    })
+
+
+
+
+function createHtml() {
     const $ul = document.querySelector("ul")
-    fetch(`https://botw-compendium.herokuapp.com/api/v2/all`)
-        .then(response => response.json())
-        .then(parsedResponse => {
-            console.log(parsedResponse)
-            createNavLinkHtml($ul, parsedResponse)
-        })
-
-
-}
-
-function createNavLinkHtml(element) {
     $li = document.createElement("li")
     $li.innerHTML = `
         <li>
@@ -28,7 +27,5 @@ function createNavLinkHtml(element) {
             <a href="category.html?category=monsters">Monsters</a>
         </li>
     `
-    element.append($li)
+    $ul.append($li)
 }
-
-createNavLinks()
