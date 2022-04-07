@@ -5,6 +5,11 @@
         sans-serif;
 }
 
+body {
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+        url("botw1.png");
+}
+
 header {
     background-color: #302b25;
     display: flex;
@@ -43,13 +48,32 @@ h1 a {
 }
 
 ul {
+    margin: 1em auto;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    width: 80%;
+    max-width: 800px;
 }
 
 li {
     display: flex;
-    margin: 10px 20px;
     flex-direction: column;
+    text-align: center;
+    margin: 1em 0;
+}
+
+#category-list-item {
+    background-color: burlywood;
+    padding: 6px 6px;
+}
+
+#category-list-item a {
+    text-decoration: none;
+    color: #302b25;
+    font-weight: 600;
+}
+
+#category-list-item img {
+    width: 275px;
 }

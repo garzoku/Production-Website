@@ -1,31 +1,27 @@
 $main = document.querySelector("main")
 
-fetch(`https://botw-compendium.herokuapp.com/api/v2/all`)
-    .then(response => response.json())
-    .then(parsedResponse => {
-        console.log(parsedResponse)
-        createHtml()
-    })
+
+fetchImage()
 
 
 
-
-function createHtml() {
+function fetchImage() {
+    const imageIds = ["386", "224", "167", "147"]
+    imageIds.forEach(id => {
+        fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
+            .then(response => response.json())
+            .then(parsedResponse => {
+                createHtml(parsedResponse)
+            })
+    });
+}
+function createHtml(image) {
     const $ul = document.querySelector("ul")
-    $li = document.createElement("li")
+    const $li = document.createElement("li")
+    $li.id = "category-list-item"
     $li.innerHTML = `
-        <li>
-            <a href="category.html?category=treasure">Treasure</a>
-        </li>
-                <li>
-            <a href="category.html?category=equipment">Equipment</a>
-        </li>
-                <li>
-            <a href="category.html?category=materials">Materials</a>
-        </li>
-                <li>
-            <a href="category.html?category=monsters">Monsters</a>
-        </li>
-    `
+        <img src="${image.data.image}" alt="${image.data.name}">
+        <a href="category.html?category=${image.data.category}">${image.data.category}</a>
+     `
     $ul.append($li)
 }

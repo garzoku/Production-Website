@@ -4,9 +4,7 @@ const queryString = new URLSearchParams(window.location.search)
 fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString.get('category')}`)
     .then(response => response.json())
     .then(parsedResponse => {
-        console.log(parsedResponse.data)
-        parsedResponse.data.map(item => {
-            const name = item.name
+        const imageUrls = parsedResponse.data.map(item => {
             createHtml(item)
         })
     })
@@ -21,8 +19,8 @@ function createHtml(equipment) {
     $li = document.createElement("li")
     $li.innerHTML = `
         <li>
-            <figure>
-                <img src="" alt="">
+            <figure id="category-list-item">
+                <img src="${equipment.image}" alt="${equipment.name}">
                 <figcaption>
                     <a href="category.html?category=${equipment.id}">${equipment.name}</a>
                 </figcaption>
