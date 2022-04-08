@@ -8,6 +8,7 @@ fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('cat
         setMapLocations(parsedResponse)
     }).catch(error => {
         console.error(error.message)
+        throwError()
     })
 
 function createHtml(item) {
@@ -45,12 +46,13 @@ function setMapLocations(item) {
         const $li = document.createElement("li")
         $li.textContent = `No common locations. How mysterious....`
         $ul.append($li)
+    } else {
+        item.data.common_locations.forEach(location => {
+            const $li = document.createElement("li")
+            $li.textContent = `${location}`
+            $ul.append($li)
+        })
     }
-    item.data.common_locations.forEach(location => {
-        const $li = document.createElement("li")
-        $li.textContent = `${location}`
-        $ul.append($li)
-    })
 }
 function setDrops(item) {
     const $div = document.querySelector("#optional-data")

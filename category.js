@@ -16,29 +16,37 @@ switch (`${queryString.get('category')}`) {
 
 
 function loadCategoryResults(queryString) {
-    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
-        .then(response => response.json())
-        .then(parsedResponse => {
-            parsedResponse.data.map(item => {
-                createHtml(item)
+    if (queryString === "creatures") {
+        fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
+            .then(response => response.json())
+            .then(parsedResponse => {
+                getArrayOfAllCreatures(parsedResponse)
+                    .forEach(item => createHtml(item))
+            }).catch(error => {
+                console.error(error.message)
+                throwError()
             })
-        }).catch(error => {
-            console.error(error)
-            throwError()
-        })
+    } else {
+        fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
+            .then(response => response.json())
+            .then(parsedResponse => {
+                parsedResponse.data.map(item => {
+                    createHtml(item)
+                })
+            }).catch(error => {
+                console.error(error.message)
+                throwError()
+            })
+    }
 }
 
 function loadSearchResults(queryString) {
     const filterItems = []
-    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/equipment`)
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/all`)
         .then(response => response.json())
         .then(parsedResponse => {
             const allItems = parsedResponse.data
-            allItems.forEach(item => {
-                if (item.name.includes(`${queryString}`))
-                    filterItems.push(item)
-            })
-            console.log(filterItems)
+            setFilteredItems(allItems, filterItems, queryString)
             if (filterItems.length === 0)
                 throw new Error(searchError())
             filterItems.forEach(item => {
@@ -47,29 +55,28 @@ function loadSearchResults(queryString) {
                     .then(parsedResponse => {
                         createHtml(parsedResponse.data)
                     }).catch(error => {
-                        console.error(error)
+                        console.error(error.message)
                         throwError()
                     })
-
             })
         }).catch(error => {
-            console.error(error)
+            console.error(error.message)
             throwError()
         })
 }
 
-function createHtml(equipment) {
+function createHtml(item) {
     const pageTitle = document.querySelector("#landing-title p")
-    pageTitle.textContent = capitalizeStrings(`${equipment.category}`)
+    pageTitle.textContent = capitalizeStrings(`${item.category}`)
     const $ul = document.querySelector("ul")
     const $li = document.createElement("li")
     $li.id = "item-select"
     $li.innerHTML = `
-            <a href="item.html?category=${equipment.id}">
+            <a href="item.html?category=${item.id}">
                 <figure>
-                    <img src="${equipment.image}" alt="${equipment.name}">
+                    <img src="${item.image}" alt="${item.name}">
                     <figcaption>
-                        <p>${capitalizeStrings(equipment.name)}</p>
+                        <p>${capitalizeStrings(item.name)}</p>
                     </figcaption>
                 </figure>
             </a>
@@ -90,4 +97,37 @@ function capitalizeStrings(string) {
 
 function throwError() {
     window.location.assign("error.html");
+}
+
+function setFilteredItems(items, filterItems, queryString) {
+    items.creatures.food.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+    items.creatures.non_food.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+    items.equipment.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+    items.monsters.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+    items.materials.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+    items.treasure.forEach(item => {
+        if (item.name.includes(`${queryString}`))
+            filterItems.push(item)
+    })
+}
+
+function getArrayOfAllCreatures(object) {
+    const creatureFoods = object.data.food.map(item => item)
+    const creatureNonFoods = object.data.non_food.map(item => item)
+    return [...creatureFoods, ...creatureNonFoods]
 }

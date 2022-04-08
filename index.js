@@ -2,28 +2,28 @@ $main = document.querySelector("main")
 
 const $input = document.querySelector("input")
 $input.addEventListener("change", refreshData);
-const imageIds = ["386", "224", "171", "148"]
+const itemIds = ["1", "386", "224", "171", "148"]
 
-imageIds.forEach(id => {
+itemIds.forEach(id => {
     fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
         .then(response => response.json())
         .then(parsedResponse => {
             createHtml(parsedResponse)
         }).catch(error => {
-            console.error(error)
+            console.error(error.message)
             throwError()
         })
 });
-function createHtml(image) {
+function createHtml(item) {
     const $ul = document.querySelector("ul")
     const $li = document.createElement("li")
     $li.id = "category-select"
     $li.innerHTML = `
-    <a href="category.html?category=${image.data.category}">
+    <a href="category.html?category=${item.data.category}">
         <figure>
-            <img src="${image.data.image}" alt="${capitalizeStrings(image.data.name)}">
+            <img src="${item.data.image}" alt="${capitalizeStrings(item.data.name)}">
             <figcaption>
-                <p>${capitalizeStrings(image.data.category)}</p>
+                <p>${capitalizeStrings(item.data.category)}</p>
             </figcaption>
         </figure>
     </a>
@@ -37,7 +37,7 @@ function refreshData(e) {
     fetch(url)
         .then((response) => response.json())
         .catch(error => {
-            console.error(error)
+            console.error(error.message)
             throwError()
         })
 }
