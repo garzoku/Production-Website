@@ -6,7 +6,7 @@ fetchImage()
 
 
 function fetchImage() {
-    const imageIds = ["386", "224", "167", "147"]
+    const imageIds = ["386", "224", "171", "148"]
     imageIds.forEach(id => {
         fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
             .then(response => response.json())
@@ -18,10 +18,16 @@ function fetchImage() {
 function createHtml(image) {
     const $ul = document.querySelector("ul")
     const $li = document.createElement("li")
-    $li.id = "category-list-item"
+    $li.id = "category-select"
     $li.innerHTML = `
-        <img src="${image.data.image}" alt="${image.data.name}">
-        <a href="category.html?category=${image.data.category}">${image.data.category}</a>
+    <a href="category.html?category=${image.data.category}">
+        <figure>
+            <img src="${image.data.image}" alt="${image.data.name}">
+            <figcaption>
+                <p>${image.data.category}</p>
+            </figcaption>
+        </figure>
+    </a>
      `
     $ul.append($li)
 }

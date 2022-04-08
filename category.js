@@ -16,16 +16,17 @@ function createHtml(equipment) {
     const pageTitle = document.querySelector("#landing-title p")
     pageTitle.textContent = capitalizeStrings(`${equipment.category}`)
     const $ul = document.querySelector("ul")
-    $li = document.createElement("li")
+    const $li = document.createElement("li")
+    $li.id = "item-select"
     $li.innerHTML = `
-        <li>
-            <figure id="category-list-item">
-                <img src="${equipment.image}" alt="${equipment.name}">
-                <figcaption>
-                    <a href="category.html?category=${equipment.id}">${equipment.name}</a>
-                </figcaption>
-            </figure>   
-        </li>
+            <a href="category.html?category=${equipment.id}">
+                <figure>
+                    <img src="${equipment.image}" alt="${equipment.name}">
+                    <figcaption>
+                        <p>${equipment.name}</p>
+                    </figcaption>
+                </figure>
+            </a>
     `
     $ul.append($li)
 }
