@@ -7,7 +7,7 @@ fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('cat
         createHtml(parsedResponse)
         setMapLocations(parsedResponse)
     }).catch(error => {
-        console.log("Error")
+        console.error(error.message)
     })
 
 function createHtml(item) {
@@ -37,11 +37,15 @@ function createHtml(item) {
                 </div>
     `
     $div.append($section)
-    if ('drops' in item.data)
-        setDrops(item)
+    setDrops(item)
 }
 function setMapLocations(item) {
     const $ul = document.querySelector("#interactive-map ul")
+    if (!item.data.common_locations) {
+        const $li = document.createElement("li")
+        $li.textContent = `No common locations. How mysterious....`
+        $ul.append($li)
+    }
     item.data.common_locations.forEach(location => {
         const $li = document.createElement("li")
         $li.textContent = `${location}`
@@ -55,13 +59,21 @@ function setDrops(item) {
     $div.append($h5)
     const $ul = document.createElement("ul")
     $h5.append($ul)
-    item.data.drops.forEach(element => {
-        const $li = document.createElement("li")
-        $li.innerHTML = `
+    if ('drops' in item.data) {
+        item.data.drops.forEach(element => {
+            const $li = document.createElement("li")
+            $li.innerHTML = `
             <div>${capitalizeStrings(element)}</div>
         `
+            $ul.append($li)
+        });
+    } else {
+        const $li = document.createElement("li")
+        $li.innerHTML = `
+            <div>${"This item has no drops"}</div>
+        `
         $ul.append($li)
-    });
+    }
 }
 
 function capitalizeStrings(string) {

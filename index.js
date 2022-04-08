@@ -2,22 +2,18 @@ $main = document.querySelector("main")
 
 const $input = document.querySelector("input")
 $input.addEventListener("change", refreshData);
+const imageIds = ["386", "224", "171", "148"]
 
-
-fetchImage()
-
-function fetchImage() {
-    const imageIds = ["386", "224", "171", "148"]
-    imageIds.forEach(id => {
-        fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
-            .then(response => response.json())
-            .then(parsedResponse => {
-                createHtml(parsedResponse)
-            }).catch(error => {
-                console.log("Error4")
-            })
-    });
-}
+imageIds.forEach(id => {
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
+        .then(response => response.json())
+        .then(parsedResponse => {
+            createHtml(parsedResponse)
+        }).catch(error => {
+            console.error(error)
+            throwError()
+        })
+});
 function createHtml(image) {
     const $ul = document.querySelector("ul")
     const $li = document.createElement("li")
@@ -41,7 +37,8 @@ function refreshData(e) {
     fetch(url)
         .then((response) => response.json())
         .catch(error => {
-            console.log("Error5")
+            console.error(error)
+            throwError()
         })
 }
 

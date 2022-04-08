@@ -24,6 +24,7 @@ function loadCategoryResults(queryString) {
             })
         }).catch(error => {
             console.error(error)
+            throwError()
         })
 }
 
@@ -47,16 +48,14 @@ function loadSearchResults(queryString) {
                         createHtml(parsedResponse.data)
                     }).catch(error => {
                         console.error(error)
+                        throwError()
                     })
 
             })
         }).catch(error => {
             console.error(error)
+            throwError()
         })
-}
-
-function processUserInput(queryString) {
-
 }
 
 function createHtml(equipment) {
