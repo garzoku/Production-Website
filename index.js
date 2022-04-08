@@ -6,8 +6,6 @@ $input.addEventListener("change", refreshData);
 
 fetchImage()
 
-
-
 function fetchImage() {
     const imageIds = ["386", "224", "171", "148"]
     imageIds.forEach(id => {
@@ -15,6 +13,8 @@ function fetchImage() {
             .then(response => response.json())
             .then(parsedResponse => {
                 createHtml(parsedResponse)
+            }).catch(error => {
+                console.log("Error4")
             })
     });
 }
@@ -40,7 +40,9 @@ function refreshData(e) {
     const url = (`https://botw-compendium.herokuapp.com/api/v2/category/${nameOfItem}`)
     fetch(url)
         .then((response) => response.json())
-        .then(console.log);
+        .catch(error => {
+            console.log("Error5")
+        })
 }
 
 function capitalizeStrings(string) {

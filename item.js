@@ -6,6 +6,8 @@ fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('cat
     .then(parsedResponse => {
         createHtml(parsedResponse)
         setMapLocations(parsedResponse)
+    }).catch(error => {
+        console.log("Error")
     })
 
 function createHtml(item) {

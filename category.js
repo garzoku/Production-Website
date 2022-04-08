@@ -1,16 +1,62 @@
 $main = document.querySelector("main")
 const queryString = new URLSearchParams(window.location.search)
 
-fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString.get('category')}`)
-    .then(response => response.json())
-    .then(parsedResponse => {
-        const imageUrls = parsedResponse.data.map(item => {
-            createHtml(item)
+switch (`${queryString.get('category')}`) {
+    case "monsters":
+    case "materials":
+    case "equipment":
+    case "treasure":
+    case "creatures":
+        loadCategoryResults(`${queryString.get('category')}`)
+        break;
+    default:
+        loadSearchResults(`${queryString.get('category')}`)
+        break;
+}
+
+
+function loadCategoryResults(queryString) {
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
+        .then(response => response.json())
+        .then(parsedResponse => {
+            parsedResponse.data.map(item => {
+                createHtml(item)
+            })
+        }).catch(error => {
+            console.log("Error3")
         })
-    })
+}
 
+function loadSearchResults(queryString) {
+    const filterItems = []
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/equipment`)
+        .then(response => response.json())
+        .then(parsedResponse => {
+            const allItems = parsedResponse.data
+            allItems.forEach(item => {
+                if (item.name.includes(`${queryString}`))
+                    filterItems.push(item)
+                else
+                    throw new Error("I can't seem to find that item")
+            })
+            filterItems.forEach(item => {
+                fetch(`https://botw-compendium.herokuapp.com/api/v2/ntry/${item.name}`)
+                    .then(response => response.json())
+                    .then(parsedResponse => {
+                        createHtml(parsedResponse.data)
+                    }).catch(error => {
+                        console.log("Error1")
+                    })
 
+            })
+        }).catch(error => {
+            console.log(error.message)
+        })
+}
 
+function processUserInput(queryString) {
+
+}
 
 function createHtml(equipment) {
     const pageTitle = document.querySelector("#landing-title p")
