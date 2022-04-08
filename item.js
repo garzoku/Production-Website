@@ -35,15 +35,8 @@ function createHtml(item) {
                 </div>
     `
     $div.append($section)
-
-    switch (item.data.category) {
-        case "treasure":
-            setDrops(item)
-            break;
-
-        default:
-            break;
-    }
+    if ('drops' in item.data)
+        setDrops(item)
 }
 function setMapLocations(item) {
     const $ul = document.querySelector("#interactive-map ul")

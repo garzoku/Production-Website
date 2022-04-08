@@ -132,7 +132,9 @@ ul {
 
 #item-profile li>div {
     font-size: 16px;
-    background-color: #ffffff;
+    font-weight: 600;
+    background-color: goldenrod;
+    border: 3px solid #ffffff;
     padding: 8px 4px;
     border-radius: 6px;
 }
@@ -181,6 +183,7 @@ ul {
 
 #interactive-map li {
     list-style: inside;
+    font-weight: 600;
 }
 
 #interactive-map section {
@@ -191,6 +194,7 @@ ul {
 #interactive-map h4 {
     padding-top: 10px;
     font-size: 20px;
+    font-weight: 500;
 }
 
 iframe {

@@ -1,5 +1,8 @@
 $main = document.querySelector("main")
 
+const $input = document.querySelector("input")
+$input.addEventListener("change", refreshData);
+
 
 fetchImage()
 
@@ -30,6 +33,14 @@ function createHtml(image) {
     </a>
      `
     $ul.append($li)
+}
+
+function refreshData(e) {
+    const nameOfItem = e.target.value;
+    const url = (`https://botw-compendium.herokuapp.com/api/v2/category/${nameOfItem}`)
+    fetch(url)
+        .then((response) => response.json())
+        .then(console.log);
 }
 
 function capitalizeStrings(string) {
