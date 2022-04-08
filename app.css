@@ -122,6 +122,21 @@ ul {
     max-width: 900px;
 }
 
+#item-profile ul {
+    width: 90%;
+}
+
+#item-profile li {
+    margin: 4px 4px;
+}
+
+#item-profile li>div {
+    font-size: 16px;
+    background-color: #ffffff;
+    padding: 8px 4px;
+    border-radius: 6px;
+}
+
 #item-profile h3 {
     font-size: 24px;
     margin-bottom: 10px;
@@ -144,10 +159,16 @@ ul {
 #item-profile figcaption {
     background-color: hsl(33, 13%, 85%);
     padding: 10px 0;
-
     padding: 10px 10px;
     text-align: center;
     width: 100%;
+}
+
+#item-profile h5 {
+    border-top: 6px dotted hsl(33, 13%, 57%);
+    font-size: 20px;
+    margin-top: 20px;
+    padding-top: 10px;
 }
 
 #interactive-map {

@@ -1,16 +1,12 @@
 $main = document.querySelector("main")
 const queryString = new URLSearchParams(window.location.search)
 
-
 fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('category')}`)
     .then(response => response.json())
     .then(parsedResponse => {
         createHtml(parsedResponse)
         setMapLocations(parsedResponse)
     })
-
-
-
 
 function createHtml(item) {
     const pageTitle = document.querySelector("#landing-title p")
@@ -24,7 +20,8 @@ function createHtml(item) {
                     <figcaption>
                         <h3>${capitalizeStrings(item.data.name)}</h3>
                         <p>${item.data.description}</p>
-                        <ul id="optional-data"></ul>
+                        <div id="optional-data">
+                        </div>
                     </figcaption>
                 </figure>
                  <div id="interactive-map">
@@ -41,17 +38,7 @@ function createHtml(item) {
 
     switch (item.data.category) {
         case "treasure":
-            const $ul = document.querySelector("#optional-data")
-            item.data.drops.forEach(element => {
-                const $li = document.createElement("li")
-                $li.innerHTML = `
-        <figure>
-            <img src="" alt="">
-            <figcaption>${element}</figcaption>
-        </figure>
-        `
-                $ul.append($li)
-            });
+            setDrops(item)
             break;
 
         default:
@@ -66,8 +53,20 @@ function setMapLocations(item) {
         $ul.append($li)
     })
 }
-function setDrops() {
-
+function setDrops(item) {
+    const $div = document.querySelector("#optional-data")
+    const $h5 = document.createElement("h5")
+    $h5.textContent = "Drops"
+    $div.append($h5)
+    const $ul = document.createElement("ul")
+    $h5.append($ul)
+    item.data.drops.forEach(element => {
+        const $li = document.createElement("li")
+        $li.innerHTML = `
+            <div>${capitalizeStrings(element)}</div>
+        `
+        $ul.append($li)
+    });
 }
 
 function capitalizeStrings(string) {
