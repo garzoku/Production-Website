@@ -19,11 +19,11 @@ function createHtml(equipment) {
     const $li = document.createElement("li")
     $li.id = "item-select"
     $li.innerHTML = `
-            <a href="category.html?category=${equipment.id}">
+            <a href="item.html?category=${equipment.id}">
                 <figure>
                     <img src="${equipment.image}" alt="${equipment.name}">
                     <figcaption>
-                        <p>${equipment.name}</p>
+                        <p>${capitalizeStrings(equipment.name)}</p>
                     </figcaption>
                 </figure>
             </a>

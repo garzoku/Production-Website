@@ -22,12 +22,23 @@ function createHtml(image) {
     $li.innerHTML = `
     <a href="category.html?category=${image.data.category}">
         <figure>
-            <img src="${image.data.image}" alt="${image.data.name}">
+            <img src="${image.data.image}" alt="${capitalizeStrings(image.data.name)}">
             <figcaption>
-                <p>${image.data.category}</p>
+                <p>${capitalizeStrings(image.data.category)}</p>
             </figcaption>
         </figure>
     </a>
      `
     $ul.append($li)
+}
+
+function capitalizeStrings(string) {
+    if (string.includes(" ")) {
+        const strings = string.split(" ").map(element => {
+            return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)}`
+        });
+        return `${strings[0]} ${strings[1]}`
+    }
+    else
+        return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}`
 }
