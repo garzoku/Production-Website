@@ -23,7 +23,7 @@ function loadCategoryResults(queryString) {
                 createHtml(item)
             })
         }).catch(error => {
-            console.log("Error3")
+            console.error(error)
         })
 }
 
@@ -36,21 +36,22 @@ function loadSearchResults(queryString) {
             allItems.forEach(item => {
                 if (item.name.includes(`${queryString}`))
                     filterItems.push(item)
-                else
-                    throw new Error("I can't seem to find that item")
             })
+            console.log(filterItems)
+            if (filterItems.length === 0)
+                throw new Error(searchError())
             filterItems.forEach(item => {
-                fetch(`https://botw-compendium.herokuapp.com/api/v2/ntry/${item.name}`)
+                fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${item.name}`)
                     .then(response => response.json())
                     .then(parsedResponse => {
                         createHtml(parsedResponse.data)
                     }).catch(error => {
-                        console.log("Error1")
+                        console.error(error)
                     })
 
             })
         }).catch(error => {
-            console.log(error.message)
+            console.error(error)
         })
 }
 
@@ -86,6 +87,8 @@ function capitalizeStrings(string) {
     }
     else
         return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}`
+}
 
-
+function throwError() {
+    window.location.assign("error.html");
 }

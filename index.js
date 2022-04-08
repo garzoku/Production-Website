@@ -55,3 +55,7 @@ function capitalizeStrings(string) {
     else
         return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}`
 }
+
+function throwError() {
+    window.location.assign("error.html");
+}
