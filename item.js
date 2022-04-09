@@ -1,5 +1,12 @@
 $main = document.querySelector("main")
 const queryString = new URLSearchParams(window.location.search)
+const spinner = document.createElement("div")
+const spinnerImage = document.createElement("img")
+spinner.append(spinnerImage)
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    displayLoadingIcon()
+})
 
 fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('category')}`)
     .then(response => response.json())
@@ -91,4 +98,14 @@ function capitalizeStrings(string) {
 
 function throwError() {
     window.location.assign("error.html");
+}
+
+function displayLoadingIcon() {
+    spinner.classList.add('spinner')
+    spinnerImage.src = 'loading-icon.gif'
+    $main.append(spinner)
+}
+
+function hideSpinner() {
+    spinner.classList.add("hidden")
 }

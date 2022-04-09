@@ -1,5 +1,12 @@
 $main = document.querySelector("main")
 const queryString = new URLSearchParams(window.location.search)
+const spinner = document.createElement("div")
+const spinnerImage = document.createElement("img")
+spinner.append(spinnerImage)
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    displayLoadingIcon()
+})
 
 switch (`${queryString.get('category')}`) {
     case "monsters":
@@ -130,4 +137,14 @@ function getArrayOfAllCreatures(object) {
     const creatureFoods = object.data.food.map(item => item)
     const creatureNonFoods = object.data.non_food.map(item => item)
     return [...creatureFoods, ...creatureNonFoods]
+}
+
+function displayLoadingIcon() {
+    spinner.classList.add('spinner')
+    spinnerImage.src = 'loading-icon.gif'
+    $main.append(spinner)
+}
+
+function hideSpinner() {
+    spinner.classList.add("hidden")
 }

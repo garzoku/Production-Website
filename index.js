@@ -1,8 +1,14 @@
-$main = document.querySelector("main")
-
+const $main = document.querySelector("main")
+const spinner = document.createElement("div")
+const spinnerImage = document.createElement("img")
+spinner.append(spinnerImage)
 const $input = document.querySelector("input")
 $input.addEventListener("change", refreshData);
 const itemIds = ["1", "386", "224", "171", "148"]
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    displayLoadingIcon()
+})
 
 itemIds.forEach(id => {
     fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${id}`)
@@ -55,4 +61,14 @@ function capitalizeStrings(string) {
 
 function throwError() {
     window.location.assign("error.html");
+}
+
+function displayLoadingIcon() {
+    spinner.classList.add('spinner')
+    spinnerImage.src = 'loading-icon.gif'
+    $main.append(spinner)
+}
+
+function hideSpinner() {
+    spinner.classList.add("hidden")
 }
