@@ -141,7 +141,7 @@ function getArrayOfAllCreatures(object) {
 
 function displayLoadingIcon() {
     spinner.classList.add('spinner')
-    spinnerImage.src = 'loading-icon.gif'
+    spinnerImage.src = 'image/loading-icon.gif'
     $main.append(spinner)
 }
 

@@ -7,7 +7,7 @@
 
 body {
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
-        url("botw1.png");
+        url("image/botw1.png");
     background-attachment: fixed;
 }
 
@@ -24,6 +24,16 @@ header {
     color: #ffffff;
     font-size: 18px;
     font-weight: 700;
+}
+
+@media only screen and (max-width: 600px) {
+    header {
+        justify-content: center;
+    }
+}
+
+header img {
+    width: 30px;
 }
 
 h1 a {
@@ -51,7 +61,11 @@ h1 a {
 }
 
 #landing-title p {
+    margin: auto;
     font-size: 20px;
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
 
 }
 
