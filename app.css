@@ -23,11 +23,13 @@ header {
     padding: 12px 12px;
     color: #ffffff;
     font-size: 18px;
+    font-weight: 700;
 }
 
 h1 a {
     text-decoration: none;
     color: #ffffff;
+    font-weight: 700;
 }
 
 #landing-title {
@@ -43,9 +45,9 @@ h1 a {
 }
 
 #landing-title h2 {
-    font-size: 30px;
+    font-size: 32px;
+    font-weight: 700;
     margin: 10px 0;
-
 }
 
 #landing-title p {
@@ -135,9 +137,13 @@ ul {
 }
 
 #item-profile li>div {
+    width: 90px;
+}
+
+#item-profile li>div {
     font-size: 16px;
     font-weight: 600;
-    background-color: goldenrod;
+    background-color: hsl(43, 74%, 65%);
     border: 3px solid #ffffff;
     padding: 8px 4px;
     border-radius: 6px;
@@ -146,6 +152,7 @@ ul {
 #item-profile h3 {
     font-size: 24px;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 #item-profile img {
@@ -173,6 +180,7 @@ ul {
 #item-profile h5 {
     border-top: 6px dotted hsl(33, 13%, 57%);
     font-size: 20px;
+    font-weight: 700;
     margin-top: 20px;
     padding-top: 10px;
 }
@@ -198,7 +206,7 @@ ul {
 #interactive-map h4 {
     padding-top: 10px;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 iframe {
@@ -221,6 +229,7 @@ iframe {
     top: 0;
     left: 0;
     background-color: #ffffff;
+    opacity: 70%;
 }
 
 .spinner>img {
