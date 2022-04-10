@@ -32,14 +32,16 @@ header {
     }
 }
 
-header img {
-    width: 30px;
-}
-
-h1 a {
+header a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: #ffffff;
-    font-weight: 700;
+}
+
+header img {
+    width: 40px;
+    margin-right: 10px;
 }
 
 #landing-title {
