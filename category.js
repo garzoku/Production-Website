@@ -2,6 +2,7 @@ $main = document.querySelector("main")
 const queryString = new URLSearchParams(window.location.search)
 const spinner = document.createElement("div")
 const spinnerImage = document.createElement("img")
+spinnerImage.alt = "page loading indicator"
 spinner.append(spinnerImage)
 
 document.addEventListener('DOMContentLoaded', (event) => {

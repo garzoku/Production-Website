@@ -1,6 +1,7 @@
 const $main = document.querySelector("main")
 const spinner = document.createElement("div")
 const spinnerImage = document.createElement("img")
+spinnerImage.alt = "page loading indicator"
 spinner.append(spinnerImage)
 const $input = document.querySelector("input")
 $input.addEventListener("change", refreshData);
