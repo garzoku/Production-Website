@@ -55,7 +55,7 @@ function setMapLocations(item) {
         item.data.common_locations.forEach(location => {
             const $li = document.createElement("li")
             const $span = document.createElement("span")
-            $span.innerHTML = `<span id="${location.slice(0, 3)}">${location}</span><button onclick="copyToClipboard('${location.slice(0, 3)}')">Copy</button>`
+            $span.innerHTML = `<span id="${location.slice(0, 3)}">${location}</span><button id="${location.slice(1, 3)}" onclick="copyToClipboard('${location.slice(0, 3)}')">Copy</button>`
             $ul.append($li)
             $li.append($span)
         })
@@ -112,7 +112,7 @@ function hideSpinner() {
 
 function copyToClipboard(elementId) {
     const processedId = `#${elementId}`
-
+    const buttonId = `#${elementId.slice(1, elementId.length)}`
     // Create a "hidden" input
     let hiddenInput = document.createElement("input");
     // Assign it the value of the specified element
@@ -121,5 +121,8 @@ function copyToClipboard(elementId) {
     hiddenInput.select();
     document.execCommand("copy");
     document.body.removeChild(hiddenInput);
+    document.querySelectorAll("button").forEach(button => button.textContent = "Copy")
+    document.querySelector(`${buttonId}`).textContent = "Copied"
+
 }
 
