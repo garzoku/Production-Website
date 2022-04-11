@@ -170,6 +170,7 @@ ul {
 
 #item-profile {
     margin: auto;
+    margin-top: 1em;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -182,12 +183,10 @@ ul {
 
 #item-profile li {
     margin: 2px 0;
-    border: 3px solid hsl(33, 13%, 57%);
-    border-radius: 6px;
 }
 
 #item-profile li>div {
-    width: 90px;
+    width: 110px;
 }
 
 #item-profile li>div {
@@ -256,6 +255,8 @@ ul {
     align-items: center;
     list-style: inside;
     font-weight: 600;
+    border: 3px solid hsl(33, 13%, 57%);
+    border-radius: 6px;
 }
 
 #interactive-map button {
