@@ -19,7 +19,7 @@ fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('cat
     })
 
 function createHtml(item) {
-    const $div = document.querySelector("#landing")
+    const $div = document.querySelector("#landing-item")
     const $section = document.createElement("section")
     $section.id = "item-profile"
     $section.innerHTML = `

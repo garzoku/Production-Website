@@ -20,10 +20,6 @@ body {
     background-attachment: fixed;
 }
 
-main {
-    position: relative;
-}
-
 header {
     background-color: hsl(33, 23%, 17%);
     display: flex;
@@ -35,12 +31,6 @@ header {
     font-weight: 700;
 }
 
-@media only screen and (max-width: 600px) {
-    header {
-        justify-content: center;
-    }
-}
-
 header a {
     display: flex;
     align-items: center;
@@ -48,20 +38,42 @@ header a {
     color: #ffffff;
 }
 
+@media only screen and (max-width: 600px) {
+    header a {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+
 header img {
     width: 40px;
     margin-right: 10px;
 }
 
-#landing {
+main {
     margin: auto;
-    display: flex;
-    flex-direction: column;
     width: 80%;
     max-width: 900px;
-    text-align: center;
 }
 
+@media only screen and (max-width: 600px) {
+    main {
+        width: 90%;
+    }
+}
+
+#landing {
+    margin: auto;
+    text-align: center;
+}
 
 #landing h2 {
     font-size: 32px;
@@ -79,8 +91,6 @@ ul {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    width: 80%;
-    max-width: 900px;
 }
 
 
@@ -97,7 +107,6 @@ ul {
     background-color: hsl(33, 13%, 57%);
     padding: 6px 6px;
     border-radius: 6px;
-
 }
 
 #category-select figcaption,
@@ -133,17 +142,35 @@ ul {
     width: 180px;
 }
 
+@media only screen and (max-width: 600px) {
+    #item-select img {
+        width: 140px;
+    }
+}
+
 #item-select p {
     color: hsl(33, 23%, 17%);
     font-weight: 700;
 }
 
-#item-profile {
-    margin: 1em auto;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+#landing-item p {
+    margin-top: 10px;
+    font-size: 18px;
 }
+
+@media only screen and (max-width: 650px) {
+    #landing-item p {
+        font-size: 16px;
+    }
+}
+
+#item-profile {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 #item-profile ul {
     width: 90%;
@@ -175,14 +202,25 @@ ul {
     border-right: 6px solid hsl(33, 13%, 57%);
 }
 
+@media only screen and (max-width: 650px) {
+    #item-profile img {
+        border-right: none;
+        border-bottom: 6px solid hsl(33, 13%, 57%);
+    }
+}
+
 #item-profile>figure {
     display: flex;
     justify-content: space-between;
     background-color: hsl(33, 13%, 57%);
     padding: 6px 6px;
     border-radius: 6px;
-    width: 900px;
-    max-width: 100%;
+}
+
+@media only screen and (max-width: 650px) {
+    #item-profile>figure {
+        flex-direction: column;
+    }
 }
 
 #item-profile figcaption {
@@ -190,7 +228,6 @@ ul {
     padding: 10px 0;
     padding: 10px 10px;
     text-align: center;
-    width: 100%;
 }
 
 #item-profile h5 {
@@ -203,7 +240,6 @@ ul {
 
 #interactive-map {
     margin: 20px 0;
-    max-width: 900px;
     background-color: hsl(33, 13%, 57%);
     padding: 6px 6px;
     border-radius: 6px;
@@ -266,4 +302,5 @@ iframe {
     right: 0;
     bottom: 0;
     position: absolute;
+    width: 50%;
 }
