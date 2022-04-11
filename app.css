@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo&family=VT323&display=swap');
 
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+
 * {
     font-family: 'Archivo',
         sans-serif;
@@ -44,31 +53,25 @@ header img {
     margin-right: 10px;
 }
 
-#landing-title {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-#landing-title h2,
-#landing-title p {
-    display: flex;
-    justify-content: center;
-}
-
-#landing-title h2 {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 10px 0;
-}
-
-#landing-title p {
+#landing {
     margin: auto;
-    font-size: 20px;
+    display: flex;
+    flex-direction: column;
     width: 80%;
     max-width: 900px;
     text-align: center;
+}
 
+
+#landing h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 1em;
+}
+
+#landing p {
+    margin-top: 1em;
+    font-size: 20px;
 }
 
 ul {
@@ -140,8 +143,6 @@ ul {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    width: 80%;
-    max-width: 900px;
 }
 
 #item-profile ul {
@@ -149,7 +150,7 @@ ul {
 }
 
 #item-profile li {
-    margin: 4px 4px;
+    margin: 2px 0;
 }
 
 #item-profile li>div {
@@ -157,18 +158,17 @@ ul {
 }
 
 #item-profile li>div {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     background-color: hsl(43, 74%, 65%);
     border: 3px solid #ffffff;
-    padding: 8px 4px;
+    padding: 2px 2px;
     border-radius: 6px;
 }
 
 #item-profile h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 #item-profile img {
@@ -210,8 +210,19 @@ ul {
 }
 
 #interactive-map li {
+    display: flex;
+    align-items: center;
     list-style: inside;
     font-weight: 600;
+}
+
+#interactive-map button {
+    padding: 0;
+    margin-left: 2px;
+}
+
+#interactive-map img {
+    width: 20px;
 }
 
 #interactive-map section {

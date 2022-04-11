@@ -19,9 +19,7 @@ fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${queryString.get('cat
     })
 
 function createHtml(item) {
-    const pageTitle = document.querySelector("#landing-title p")
-    pageTitle.textContent = capitalizeStrings(`${item.data.category}`)
-    const $div = document.querySelector("#landing-title")
+    const $div = document.querySelector("#landing")
     const $section = document.createElement("section")
     $section.id = "item-profile"
     $section.innerHTML = `
@@ -56,8 +54,10 @@ function setMapLocations(item) {
     } else {
         item.data.common_locations.forEach(location => {
             const $li = document.createElement("li")
-            $li.textContent = `${location}`
+            const $span = document.createElement("span")
+            $span.innerHTML = `<span id="${location.slice(0, 3)}">${location}</span><button onclick="copyToClipboard('${location.slice(0, 3)}')">Copy</button>`
             $ul.append($li)
+            $li.append($span)
         })
     }
 }
@@ -72,15 +72,15 @@ function setDrops(item) {
         item.data.drops.forEach(element => {
             const $li = document.createElement("li")
             $li.innerHTML = `
-            <div>${capitalizeStrings(element)}</div>
-        `
+                <div>${capitalizeStrings(element)}</div>
+                    `
             $ul.append($li)
         });
     } else {
         const $li = document.createElement("li")
         $li.innerHTML = `
-            <div>${"This item has no drops"}</div>
-        `
+                    <div>${"This item has no drops"}</div>
+                        `
         $ul.append($li)
     }
 }
@@ -88,12 +88,12 @@ function setDrops(item) {
 function capitalizeStrings(string) {
     if (string.includes(" ")) {
         const strings = string.split(" ").map(element => {
-            return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)}`
+            return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)} `
         });
-        return `${strings[0]} ${strings[1]}`
+        return `${strings[0]} ${strings[1]} `
     }
     else
-        return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}`
+        return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)} `
 }
 
 function throwError() {
@@ -109,3 +109,17 @@ function displayLoadingIcon() {
 function hideSpinner() {
     spinner.classList.add("hidden")
 }
+
+function copyToClipboard(elementId) {
+    const processedId = `#${elementId}`
+
+    // Create a "hidden" input
+    let hiddenInput = document.createElement("input");
+    // Assign it the value of the specified element
+    hiddenInput.setAttribute("value", document.querySelector(`${processedId}`).innerHTML);
+    document.body.appendChild(hiddenInput);
+    hiddenInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(hiddenInput);
+}
+

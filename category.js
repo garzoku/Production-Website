@@ -73,8 +73,6 @@ function loadSearchResults(queryString) {
 }
 
 function createHtml(item) {
-    const pageTitle = document.querySelector("#landing-title p")
-    pageTitle.textContent = capitalizeStrings(`${item.category}`)
     const $ul = document.querySelector("ul")
     const $li = document.createElement("li")
     $li.id = "item-select"
