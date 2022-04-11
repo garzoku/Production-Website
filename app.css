@@ -178,6 +178,8 @@ ul {
 
 #item-profile li {
     margin: 2px 0;
+    border: 3px solid hsl(33, 13%, 57%);
+    border-radius: 6px;
 }
 
 #item-profile li>div {

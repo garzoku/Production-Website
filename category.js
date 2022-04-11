@@ -1,83 +1,81 @@
-$main = document.querySelector("main")
+const $main = document.querySelector('main')
 const queryString = new URLSearchParams(window.location.search)
-const spinner = document.createElement("div")
-const spinnerImage = document.createElement("img")
-spinnerImage.alt = "page loading indicator"
+const spinner = document.createElement('div')
+const spinnerImage = document.createElement('img')
+spinnerImage.alt = 'page loading indicator'
 spinner.append(spinnerImage)
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    displayLoadingIcon()
+  displayLoadingIcon()
 })
 
 switch (`${queryString.get('category')}`) {
-    case "monsters":
-    case "materials":
-    case "equipment":
-    case "treasure":
-    case "creatures":
-        loadCategoryResults(`${queryString.get('category')}`)
-        break;
-    default:
-        loadSearchResults(`${queryString.get('category')}`)
-        break;
+  case 'monsters':
+  case 'materials':
+  case 'equipment':
+  case 'treasure':
+  case 'creatures':
+    loadCategoryResults(`${queryString.get('category')}`)
+    break
+  default:
+    loadSearchResults(`${queryString.get('category')}`)
+    break
 }
 
-
-function loadCategoryResults(queryString) {
-    if (queryString === "creatures") {
-        fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
-            .then(response => response.json())
-            .then(parsedResponse => {
-                getArrayOfAllCreatures(parsedResponse)
-                    .forEach(item => createHtml(item))
-            }).catch(error => {
-                console.error(error.message)
-                throwError()
-            })
-    } else {
-        fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
-            .then(response => response.json())
-            .then(parsedResponse => {
-                parsedResponse.data.map(item => {
-                    createHtml(item)
-                })
-            }).catch(error => {
-                console.error(error.message)
-                throwError()
-            })
-    }
+function loadCategoryResults (queryString) {
+  if (queryString === 'creatures') {
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        getArrayOfAllCreatures(parsedResponse)
+          .forEach(item => createHtml(item))
+      }).catch(error => {
+        console.error(error.message)
+        throwError()
+      })
+  } else {
+    fetch(`https://botw-compendium.herokuapp.com/api/v2/category/${queryString}`)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        parsedResponse.data.forEach(item => {
+          createHtml(item)
+        })
+      }).catch(error => {
+        console.error(error.message)
+        throwError()
+      })
+  }
 }
 
-function loadSearchResults(queryString) {
-    const filterItems = []
-    fetch(`https://botw-compendium.herokuapp.com/api/v2/all`)
-        .then(response => response.json())
-        .then(parsedResponse => {
-            const allItems = parsedResponse.data
-            setFilteredItems(allItems, filterItems, queryString)
-            if (filterItems.length === 0)
-                throw new Error(searchError())
-            filterItems.forEach(item => {
-                fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${item.name}`)
-                    .then(response => response.json())
-                    .then(parsedResponse => {
-                        createHtml(parsedResponse.data)
-                    }).catch(error => {
-                        console.error(error.message)
-                        throwError()
-                    })
-            })
-        }).catch(error => {
+function loadSearchResults (queryString) {
+  const filterItems = []
+  fetch('https://botw-compendium.herokuapp.com/api/v2/all')
+    .then(response => response.json())
+    .then(parsedResponse => {
+      const allItems = parsedResponse.data
+      setFilteredItems(allItems, filterItems, queryString)
+      if (filterItems.length === 0) { throw new Error(throwError()) }
+      filterItems.forEach(item => {
+        fetch(`https://botw-compendium.herokuapp.com/api/v2/entry/${item.name}`)
+          .then(response => response.json())
+          .then(parsedResponse => {
+            createHtml(parsedResponse.data)
+          }).catch(error => {
             console.error(error.message)
             throwError()
-        })
+          })
+      })
+    }).catch(error => {
+      console.error(error.message)
+      throwError()
+    })
 }
 
-function createHtml(item) {
-    const $ul = document.querySelector("ul")
-    const $li = document.createElement("li")
-    $li.id = "item-select"
-    $li.innerHTML = `
+function createHtml (item) {
+  const $ul = document.querySelector('ul')
+  const $li = document.createElement('li')
+  $li.id = 'item-select'
+  $li.innerHTML = `
             <a href="item.html?category=${item.id}">
                 <figure>
                     <img src="${item.image}" alt="${item.name}">
@@ -87,63 +85,55 @@ function createHtml(item) {
                 </figure>
             </a>
     `
-    $ul.append($li)
+  $ul.append($li)
 }
 
-function capitalizeStrings(string) {
-    if (string.includes(" ")) {
-        const strings = string.split(" ").map(element => {
-            return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)}`
-        });
-        return `${strings[0]} ${strings[1]}`
-    }
-    else
-        return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}`
+function capitalizeStrings (string) {
+  if (string.includes(' ')) {
+    const strings = string.split(' ').map(element => {
+      return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)}`
+    })
+    return `${strings[0]} ${strings[1]}`
+  } else { return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}` }
 }
 
-function throwError() {
-    window.location.assign("error.html");
+function throwError () {
+  window.location.assign('error.html')
 }
 
-function setFilteredItems(items, filterItems, queryString) {
-    items.creatures.food.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
-    items.creatures.non_food.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
-    items.equipment.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
-    items.monsters.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
-    items.materials.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
-    items.treasure.forEach(item => {
-        if (item.name.includes(`${queryString}`))
-            filterItems.push(item)
-    })
+function setFilteredItems (items, filterItems, queryString) {
+  items.creatures.food.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
+  items.creatures.non_food.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
+  items.equipment.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
+  items.monsters.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
+  items.materials.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
+  items.treasure.forEach(item => {
+    if (item.name.includes(`${queryString}`)) { filterItems.push(item) }
+  })
 }
 
-function getArrayOfAllCreatures(object) {
-    const creatureFoods = object.data.food.map(item => item)
-    const creatureNonFoods = object.data.non_food.map(item => item)
-    return [...creatureFoods, ...creatureNonFoods]
+function getArrayOfAllCreatures (object) {
+  const creatureFoods = object.data.food.map(item => item)
+  const creatureNonFoods = object.data.non_food.map(item => item)
+  return [...creatureFoods, ...creatureNonFoods]
 }
 
-function displayLoadingIcon() {
-    spinner.classList.add('spinner')
-    spinnerImage.src = 'image/loading-icon.gif'
-    $main.append(spinner)
+function displayLoadingIcon () {
+  spinner.classList.add('spinner')
+  spinnerImage.src = 'image/loading-icon.gif'
+  $main.append(spinner)
 }
 
-function hideSpinner() {
-    spinner.classList.add("hidden")
+function hideSpinner () {
+  spinner.classList.add('hidden')
 }
