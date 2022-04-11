@@ -176,6 +176,11 @@ ul {
     flex-direction: column;
 }
 
+@media only screen and (max-width: 740px) {
+    #item-profile {
+        max-width: 450px;
+    }
+}
 
 #item-profile ul {
     width: 90%;
