@@ -56,7 +56,9 @@ function setMapLocations(item) {
         item.data.common_locations.forEach(location => {
             const $li = document.createElement('li')
             const $span = document.createElement('span')
-            $span.innerHTML = `<span id="${location.slice(0, 3)}">${location}</span><button id="${location.slice(1, 3)}" onclick="copyToClipboard('${location.slice(0, 3)}')">Copy</button>`
+            const buttonId = `${location.slice(1, 3)}`
+            const spanId = `${location.slice(0, 3)}`
+            $span.innerHTML = `<span id="${spanId}">${location}</span><button id="${buttonId}" onclick="copyToClipboard('${spanId}')">Copy</button>`
             $ul.append($li)
             $li.append($span)
         })

@@ -38,6 +38,10 @@ header a {
     color: #ffffff;
 }
 
+header a:hover {
+    color: #1c73e8;
+}
+
 @media only screen and (max-width: 740px) {
     header a {
         flex-direction: column;
