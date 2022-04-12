@@ -34,6 +34,7 @@ header {
 header a {
     display: flex;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: #ffffff;
 }
@@ -60,6 +61,12 @@ header a:hover {
 header img {
     width: 40px;
     margin-right: 10px;
+}
+
+@media only screen and (max-width: 740px) {
+    header img {
+        margin-left: 10px;
+    }
 }
 
 main {
@@ -111,6 +118,14 @@ ul {
     background-color: hsl(33, 13%, 57%);
     padding: 6px 6px;
     border-radius: 6px;
+}
+
+@media only screen and (max-width: 740px) {
+
+    #category-select figure,
+    #item-select figure {
+        font-size: 12px;
+    }
 }
 
 #category-select figcaption,
