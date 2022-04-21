@@ -4,7 +4,7 @@ const spinnerImage = document.createElement('img')
 spinnerImage.alt = 'page loading indicator'
 spinner.append(spinnerImage)
 const $input = document.querySelector('input')
-$input.addEventListener('click', refreshData)
+$input.addEventListener('submit', refreshData)
 const itemIds = ['1', '386', '224', '171', '148']
 
 document.addEventListener('DOMContentLoaded', (event) => {
