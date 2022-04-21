@@ -4,7 +4,7 @@ const spinnerImage = document.createElement('img')
 spinnerImage.alt = 'page loading indicator'
 spinner.append(spinnerImage)
 const $input = document.querySelector('input')
-$input.addEventListener('change', refreshData)
+$input.addEventListener('click', refreshData)
 const itemIds = ['1', '386', '224', '171', '148']
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -21,7 +21,7 @@ itemIds.forEach(id => {
       throwError()
     })
 })
-function createHtml (item) {
+function createHtml(item) {
   const $ul = document.querySelector('ul')
   const $li = document.createElement('li')
   $li.id = 'category-select'
@@ -38,7 +38,7 @@ function createHtml (item) {
   $ul.append($li)
 }
 
-function refreshData (e) {
+function refreshData(e) {
   const nameOfItem = e.target.value
   const url = (`https://botw-compendium.herokuapp.com/api/v2/category/${nameOfItem}`)
   fetch(url)
@@ -49,7 +49,7 @@ function refreshData (e) {
     })
 }
 
-function capitalizeStrings (string) {
+function capitalizeStrings(string) {
   if (string.includes(' ')) {
     const strings = string.split(' ').map(element => {
       return `${element.slice(0, 1).toUpperCase()}${element.slice(1, element.length)}`
@@ -58,16 +58,16 @@ function capitalizeStrings (string) {
   } else { return `${string.slice(0, 1).toUpperCase()}${string.slice(1, string.length)}` }
 }
 
-function throwError () {
+function throwError() {
   window.location.assign('error.html')
 }
 
-function displayLoadingIcon () {
+function displayLoadingIcon() {
   spinner.classList.add('spinner')
   spinnerImage.src = 'image/loading-icon.gif'
   $main.append(spinner)
 }
 
-function hideSpinner () {
+function hideSpinner() {
   spinner.classList.add('hidden')
 }
